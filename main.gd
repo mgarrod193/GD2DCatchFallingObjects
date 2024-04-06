@@ -1,6 +1,7 @@
 extends Node
 
 @export var mob_scene: PackedScene
+@export var lives = 3
 var score
 
 var spawn1
@@ -11,6 +12,7 @@ var spawns
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Player.start($StartPosition.position)
+	$HUD.update_lives(lives)
 	score = 0
 	spawn1 = $EnemySpawn1.position
 	spawn2 = $EnemySpawn2.position
@@ -22,7 +24,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
-
 
 func _on_start_timer_timeout():
 	$ScoreTimer.start()
@@ -39,3 +40,10 @@ func _on_spawn_timer_timeout():
 	mob.position = spawns[random_spawn]
 	
 	add_child(mob)
+
+
+func _on_area_2d_body_entered(body):
+	if body.name == "Mob":
+		lives -= 1
+		$HUD.update_lives(lives) # Replace with function body.
+		body.queue_free()

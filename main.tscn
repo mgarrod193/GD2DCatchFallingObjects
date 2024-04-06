@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cyc8r03m10vjf"]
+[gd_scene load_steps=7 format=3 uid="uid://cyc8r03m10vjf"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_wvaje"]
 [ext_resource type="PackedScene" uid="uid://db4cnemqigasj" path="res://mob.tscn" id="2_0tta2"]
 [ext_resource type="Texture2D" uid="uid://bbm6mh3la7jew" path="res://art/basicGround.png" id="2_chaxb"]
 [ext_resource type="PackedScene" uid="uid://cos7gmef4phv5" path="res://Player.tscn" id="3_etppv"]
+[ext_resource type="PackedScene" uid="uid://sylva27due6h" path="res://hud.tscn" id="5_qkw6q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cklb6"]
 
 [node name="main" type="Node" groups=["SpawnLocations"]]
 script = ExtResource("1_wvaje")
@@ -46,6 +49,16 @@ position = Vector2(749, -32)
 [node name="EnemySpawn4" type="Marker2D" parent="." groups=["SpawnLoactions"]]
 position = Vector2(997, -19)
 
+[node name="HUD" parent="." instance=ExtResource("5_qkw6q")]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(400, 780)
+scale = Vector2(100, 1)
+shape = SubResource("RectangleShape2D_cklb6")
+
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

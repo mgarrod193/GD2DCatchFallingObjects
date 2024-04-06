@@ -2,8 +2,7 @@ extends Area2D
 signal catch
 
 
-@export var walk_speed = 200
-@export var lives =3
+@export var walk_speed = 400
 var screen_size
 
 
