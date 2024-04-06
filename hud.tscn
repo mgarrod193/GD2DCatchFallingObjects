@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://sylva27due6h"]
+
+[ext_resource type="Script" path="res://HUD.gd" id="1_0d0ut"]
+
+[node name="HUD" type="CanvasGroup"]
+script = ExtResource("1_0d0ut")
+
+[node name="Lives" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 64
+text = "Lives:"
+
+[node name="LivesCounter" type="Label" parent="."]
+offset_left = 187.0
+offset_top = 8.0
+offset_right = 227.0
+offset_bottom = 91.0
+theme_override_font_sizes/font_size = 60
+text = "0"

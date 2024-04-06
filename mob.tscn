@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://db4cnemqigasj"]
+
+[ext_resource type="Texture2D" uid="uid://cecbr6fsnbgln" path="res://art/enemySwimming_1.png" id="1_0iwp5"]
+[ext_resource type="Script" path="res://mob.gd" id="1_8olq0"]
+[ext_resource type="Texture2D" uid="uid://d2dfay0cjoswa" path="res://art/enemySwimming_2.png" id="2_nac2h"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7lhu8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0iwp5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_nac2h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ei3v6"]
+radius = 18.0
+height = 56.0
+
+[node name="Mob" type="RigidBody2D"]
+visibility_layer = 3
+collision_mask = 0
+gravity_scale = 0.5
+script = ExtResource("1_8olq0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_7lhu8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ei3v6")
