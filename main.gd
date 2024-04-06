@@ -11,6 +11,7 @@ var spawn4
 var spawns 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$HUD.update_message("Catch Them All!")
 	$Player.start($StartPosition.position)
 	$HUD.update_lives(lives)
 	score = 0
@@ -20,10 +21,17 @@ func _ready():
 	spawn4 = $EnemySpawn4.position
 	spawns = [spawn1, spawn2, spawn3, spawn4]
 
-
+func start():
+	$Player.start($StartPosition.position)
+	$Player.show()
+	lives = 3
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	pass
+	if lives == 0:
+		$Player.hide()
+		$HUD.show_button()
+		$HUD.update_message("Better Luck Next Time")
 
 func _on_start_timer_timeout():
 	$ScoreTimer.start()
