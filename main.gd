@@ -3,6 +3,7 @@ extends Node
 @export var mob_scene: PackedScene
 @export var lives = 3
 var score
+var time = 2
 
 var spawn1
 var spawn2
@@ -23,20 +24,32 @@ func _ready():
 	spawns = [spawn1, spawn2, spawn3, spawn4]
 
 func start():
+	$SpawnTimer.set_wait_time(time)
 	$Player.start($StartPosition.position)
 	$Player.show()
 	$SpawnTimer.start()
 	lives = 3
+	score = 0
+	$HUD.update_score(score)
+	$HUD.update_lives(lives)
+	
 
 func game_over():
-		$Player.hide()
-		$HUD.show_button()
-		$HUD.update_message("Better Luck Next Time")
-		$SpawnTimer.stop()
+	$Music.stop()
+	$MusicTimer.start()
+	$DeathSound.play()
+	$Player.hide()
+	$HUD.show_button()
+	$HUD.update_message("Better Luck Next Time")
+	$SpawnTimer.stop()
+
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if lives == 0:
 		game_over()
+		lives = 3
 
 
 func _on_score_timer_timeout():
@@ -53,7 +66,20 @@ func _on_spawn_timer_timeout():
 
 
 func _on_area_2d_body_entered(body):
-	if body.name == "Mob":
-		lives -= 1
-		$HUD.update_lives(lives) # Replace with function body.
-		body.queue_free()
+	lives -= 1
+	$HUD.update_lives(lives) # Replace with function body.
+	body.queue_free()
+
+
+func _on_player_catch():
+	score += 1
+	$HUD.update_score(str(score))
+
+
+func _on_hud_harder():
+	time -= 0.5
+	$SpawnTimer.set_wait_time(time)
+
+
+func _on_music_timer_timeout():
+	$Music.play()

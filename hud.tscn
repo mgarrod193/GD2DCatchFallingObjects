@@ -38,4 +38,22 @@ offset_bottom = 606.0
 theme_override_font_sizes/font_size = 60
 text = "Start!"
 
+[node name="ScoreText" type="Label" parent="."]
+offset_left = 1015.0
+offset_top = 8.0
+offset_right = 1193.0
+offset_bottom = 91.0
+theme_override_font_sizes/font_size = 60
+text = "Score:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreCounter" type="Label" parent="."]
+offset_left = 1217.0
+offset_top = 15.0
+offset_right = 1257.0
+offset_bottom = 98.0
+theme_override_font_sizes/font_size = 60
+text = "0"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
