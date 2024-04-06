@@ -28,9 +28,7 @@ one_shot = true
 autostart = true
 
 [node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 5.0
-
-[node name="ScoreTimer" type="Timer" parent="."]
+wait_time = 2.0
 
 [node name="Player" parent="." instance=ExtResource("3_etppv")]
 
@@ -60,6 +58,5 @@ shape = SubResource("RectangleShape2D_cklb6")
 
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
-[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
 [connection signal="startgame" from="HUD" to="." method="start"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

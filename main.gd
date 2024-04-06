@@ -14,6 +14,7 @@ func _ready():
 	$HUD.update_message("Catch Them All!")
 	$Player.start($StartPosition.position)
 	$HUD.update_lives(lives)
+	$Player.hide()
 	score = 0
 	spawn1 = $EnemySpawn1.position
 	spawn2 = $EnemySpawn2.position
@@ -24,18 +25,19 @@ func _ready():
 func start():
 	$Player.start($StartPosition.position)
 	$Player.show()
+	$SpawnTimer.start()
 	lives = 3
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	if lives == 0:
+
+func game_over():
 		$Player.hide()
 		$HUD.show_button()
 		$HUD.update_message("Better Luck Next Time")
+		$SpawnTimer.stop()
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	if lives == 0:
+		game_over()
 
-func _on_start_timer_timeout():
-	$ScoreTimer.start()
-	$SpawnTimer.start()
 
 func _on_score_timer_timeout():
 	score += 1
